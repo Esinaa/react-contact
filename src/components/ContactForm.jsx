@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { v4 as uuid } from "uuid";
+import { Container, Form, Button } from "react-bootstrap";
 
 const ContactForm = (props) => {
   const [name, setName] = useState("");
@@ -29,7 +30,7 @@ const ContactForm = (props) => {
       };
 
       props.addContact(newContact);
-      console.log(name, phoneNumber, location);
+
       setName("");
       setPhoneNumber("");
       setLocation("");
@@ -37,31 +38,46 @@ const ContactForm = (props) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={name}
-          placeholder="Enter Your Name"
-          onChange={handleNameChange}
-        />
-        <input
-          type="number"
-          name="Phone Number"
-          value={phoneNumber}
-          placeholder="Enter Your Phone Number"
-          onChange={handlePhoneNumberChange}
-        />
-        <input
-          type="text"
-          value={location}
-          placeholder="Enter Your Location"
-          onChange={handleLocationChange}
-        />
+    <Container className="my-auto">
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label>Full Name</Form.Label>
+          <Form.Control
+            // className="w-50"
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+            placeholder="Enter your full name"
+          />
+        </Form.Group>
 
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+        <Form.Group className="mb-3">
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            // className="w-50"
+            value={phoneNumber}
+            onChange={handlePhoneNumberChange}
+            type="number"
+            placeholder="Enter Your Phone Number"
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Location</Form.Label>
+          <Form.Control
+            // className="w-50"
+            type="text"
+            value={location}
+            onChange={handleLocationChange}
+            placeholder="Enter Your Location"
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

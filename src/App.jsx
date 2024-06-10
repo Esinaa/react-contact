@@ -2,6 +2,7 @@ import { useState } from "react";
 import Contacts from "./components/Contacts";
 import ContactForm from "./components/ContactForm";
 import { v4 as uuid } from "uuid";
+import { Container, Row, Col } from "react-bootstrap";
 
 function App() {
   const [contactUsers, setContactusers] = useState([
@@ -35,11 +36,36 @@ function App() {
     setContactusers([...contactUsers, newContact]);
   };
 
+  const editContact = (contactId, newContactDetails) => {
+    let newArray = contactUsers.map((contact) => {
+      if (contact.id === contactId) {
+        return newContactDetails;
+      } else {
+        return contact;
+      }
+    });
+    setContactusers(newArray);
+  };
+
+  const deleteContact = (contactId) => {
+    let newArray = contactUsers.filter((contact) => contact.id !== contactId);
+    setContactusers(newArray);
+  };
   return (
-    <div>
-      <ContactForm addContact={handleAddContact} />
-      <Contacts key={contactUsers.id} contactUsers={contactUsers} />
-    </div>
+    <Container>
+      <Row>
+        <Col>
+          <ContactForm addContact={handleAddContact} />
+        </Col>
+        <Col>
+          <Contacts
+            editContact={editContact}
+            deleteContact={deleteContact}
+            contactUsers={contactUsers}
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
